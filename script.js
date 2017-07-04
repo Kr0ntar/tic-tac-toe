@@ -1,3 +1,4 @@
+var gameBoard = document.querySelector("#tic-tac-toe");
 var c1 = document.querySelector("#c1");
 var c2 = document.querySelector("#c2");
 var c3 = document.querySelector("#c3");
@@ -9,141 +10,94 @@ var c8 = document.querySelector("#c8");
 var c9 = document.querySelector("#c9");
 var btnX = document.querySelector("#ecks");
 var btnO = document.querySelector("#oww");
+var playAgainBtn = document.querySelector("#play-again");
+var backBtn = document.querySelector("#back-btn");
+var cell = document.querySelectorAll(".cell-data");
+var table = document.querySelector("#table");
+var choiceBtns = document.querySelector("#choice-buttons");
+var playerStatus = document.querySelector("#player-status");
+var gameOverMsg = document.querySelector("#game-over-msg");
+var errorMsg = document.querySelector("#error-msg");
+var statusMsg = document.querySelector("#status-msg");
+var msg = document.querySelector("#message");
 var playerMove = "";
 var cpuMove = "";
-var firstTurn = 0;
+var turn = 5;
 
+
+/* button events */
 btnX.addEventListener('click', function() {
 	playerMove = "X";
 	cpuMove = "O";
-	this.disabled = true;
-	btnO.disabled = true;
+	choiceBtns.style.display = "none";
+	playerStatus.style.display = "block";
+	statusMsg.textContent = "You play as X!";
 });
 
 btnO.addEventListener('click', function() {
 	playerMove = "O";
 	cpuMove = "X";
-	this.disabled = true;
-	btnX.disabled = true;
+	choiceBtns.style.display = "none";
+	playerStatus.style.display = "block";
+	statusMsg.textContent = "You play as O!";
 });
 
-c1.addEventListener('click', function() {
-	if(c1.textContent == "" && playerMove == "") {
-		return false;
-	} else if(c1.textContent == "") {
-		c1.textContent = playerMove;
-	} else {
-		return false;
+playAgainBtn.addEventListener('click', function() {
+	choiceBtns.style.display = "block";
+	gameOverMsg.style.display = "none";
+	for(var i = 0; i < 9; i++) {
+		cell[i].textContent = "";
 	}
-	compAI();
 });
 
-c2.addEventListener('click', function() {
-	if(c2.textContent == "" && playerMove == "") {
-		return false;
-	} else if(c2.textContent == "") {
-		c2.textContent = playerMove;
-	} else {
-		return false;
-	}
-	compAI();
+backBtn.addEventListener('click', function() {
+	errorMsg.style.display = "none";
+	choiceBtns.style.display = "block";
 });
 
-c3.addEventListener('click', function() {
-	if(c3.textContent == "" && playerMove == "") {
-		return false;
-	} else if(c3.textContent == "") {
-		c3.textContent = playerMove;
-	} else {
-		return false;
-	}
-	compAI();
-});
 
-c4.addEventListener('click', function() {
-	if(c4.textContent == "" && playerMove == "") {
-		return false;
-	} else if(c4.textContent == "") {
-		c4.textContent = playerMove;
-	} else {
-		return false;
-	}
-	compAI();
-});
-
-c5.addEventListener('click', function() {
-	if(c5.textContent == "" && playerMove == "") {
-		return false;
-	} else if(c5.textContent == "") {
-		c5.textContent = playerMove;
-	} else {
-		return false;
-	}
-	compAI();
-});
-
-c6.addEventListener('click', function() {
-	if(c6.textContent == "" && playerMove == "") {
-		return false;
-	} else if(c6.textContent == "") {
-		c6.textContent = playerMove;
-	} else {
-		return false;
-	}
-	compAI();
-});
-
-c7.addEventListener('click', function() {
-	if(c7.textContent == "" && playerMove == "") {
-		return false;
-	} else if(c7.textContent == "") {
-		c7.textContent = playerMove;
-	} else {
-		return false;
-	}
-	compAI();
-});
-
-c8.addEventListener('click', function() {
-	if(c8.textContent == "" && playerMove == "") {
-		return false;
-	} else if(c8.textContent == "") {
-		c8.textContent = playerMove;
-	} else {
-		return false;
-	}
-	compAI();
-});
-
-c9.addEventListener('click', function() {
-	if(c9.textContent == "" && playerMove == "") {
-		return false;
-	} else if(c9.textContent == "") {
-		c9.textContent = playerMove;
-	} else {
-		return false;
-	}
-	compAI();
-});
-
-function compAI() {
-	var compWinChance = compAttack();
-	var ifPlayerWin = playerWin();
-
-	if(compWinChance === true) {
-		console.log("CPU Wins!");
-		return false;
-	} else if(ifPlayerWin === true) {
-		console.log("Player Wins!");
-		return false;
-	} else {
-		var compCounter = compDefense();
-		if(compCounter === false) {
-			getRandomElement();
+/* td cells events */
+for(var i = 0; i < 9; i++) {
+	cell[i].addEventListener('click', function() {
+		if(this.textContent == "" && playerMove == "") {
+			choiceBtns.style.display = "none";
+			errorMsg.style.display = "block";
+			return false;
+		} else if(this.textContent == "") {
+			this.textContent = playerMove;
+			turn--;
 		} else {
 			return false;
-		}	
+		}
+		compAI();
+	});
+}
+
+
+/* CPU AI */
+function compAI() {
+	var ifPlayerWin = playerWin();
+	if(ifPlayerWin === true) {
+		gameOver("player");
+		return false;
 	}
+
+	var compWinChance = compAttack();
+	if(compWinChance === true) {
+		gameOver("cpu");
+		return false;
+	}
+
+	if(turn === 0) {
+		console.log("It's A Draw!");
+		gameOver("draw");
+		return false;
+	}
+	
+	var compCounter = compDefense();
+	if(compCounter === false) {
+		getRandomElement();
+	} 	
 
 	function compAttack() {
 		if(c1.textContent == cpuMove && c2.textContent == cpuMove && c3.textContent == "") {
@@ -435,4 +389,28 @@ function getRandomElement() {
 	} else {
 		randElem.textContent = cpuMove;
 	}
+}
+
+function gameOver(winner) {
+	for(var i = 0; i < 9; i++) {
+		cell[i].classList.add("unclickable");
+	}
+	playerStatus.style.display = "none";
+	gameOverMsg.style.display = "block";
+	playerMove = "";
+	cpuMove = "";
+	switch(winner) {
+		case "cpu":
+			msg.textContent = "CPU Wins!";
+		break;
+
+		case "player":
+			msg.textContent = "Player Wins!";
+		break;
+
+		case "draw":
+			msg.textContent = "It's a draw!";
+		break;
+	}
+	return false;
 }

@@ -5,10 +5,29 @@
 	<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-	<h1>Tic Tac Toe</h1><br>
-	<button id="ecks">X</button>
-	<button id="oww">O</button>
-	<table>
+	<h1>Tic Tac Toe</h1>
+
+	<div id="choice-buttons" class="containers">
+		<h3>Choose One</h3>
+		<button id="ecks">X</button>
+		<button id="oww">O</button>
+	</div>
+
+	<div id="player-status" class="containers">
+		<h3 id="status-msg"></h3>
+	</div>
+
+	<div id="game-over-msg" class="containers">
+		<h3 id="message"></h3>
+		<button id="play-again">Play Again</button>
+	</div>
+
+	<div id="error-msg" class="containers">
+		<h3>Select a symbol first!</h3>
+		<button id="back-btn">Back</button>
+	</div>
+	
+	<table id="tic-tac-toe" disabled>
 		<tr>
 			<td id="c1" class="cell-data"></td>
 			<td id="c2" class="cell-data"></td>
@@ -27,6 +46,7 @@
 			<td id="c9" class="cell-data"></td>
 		</tr>
 	</table>
+	
 	<script src="script.js" type="text/javascript"></script>
 </body>
 </html>
