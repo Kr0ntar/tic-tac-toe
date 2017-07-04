@@ -1,3 +1,7 @@
+* {
+	font-family: Helvetica, sans-serif, serif;
+}
+
 h1 {
 	text-align: center;
 }
@@ -6,6 +10,8 @@ td {
 	height: 100px;
 	width: 100px;
 	text-align: center;
+	font-size: 18px;
+	font-weight: 900;
 }
 
 #c5 {
