@@ -43,11 +43,7 @@ btnO.addEventListener('click', function() {
 });
 
 playAgainBtn.addEventListener('click', function() {
-	choiceBtns.style.display = "block";
-	gameOverMsg.style.display = "none";
-	for(var i = 0; i < 9; i++) {
-		cell[i].textContent = "";
-	}
+	location.reload();
 });
 
 backBtn.addEventListener('click', function() {
@@ -393,7 +389,7 @@ function getRandomElement() {
 
 function gameOver(winner) {
 	for(var i = 0; i < 9; i++) {
-		cell[i].classList.add("unclickable");
+		cell[i].classList.toggle("unclickable");
 	}
 	playerStatus.style.display = "none";
 	gameOverMsg.style.display = "block";
