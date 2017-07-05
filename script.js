@@ -31,7 +31,7 @@ btnX.addEventListener('click', function() {
 	cpuMove = "O";
 	choiceBtns.style.display = "none";
 	playerStatus.style.display = "block";
-	statusMsg.textContent = "You play as X!";
+	statusMsg.textContent = "You play as X";
 });
 
 btnO.addEventListener('click', function() {
@@ -39,7 +39,7 @@ btnO.addEventListener('click', function() {
 	cpuMove = "X";
 	choiceBtns.style.display = "none";
 	playerStatus.style.display = "block";
-	statusMsg.textContent = "You play as O!";
+	statusMsg.textContent = "You play as O";
 });
 
 playAgainBtn.addEventListener('click', function() {

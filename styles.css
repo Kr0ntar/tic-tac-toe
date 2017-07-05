@@ -1,5 +1,6 @@
 * {
 	font-family: Helvetica, sans-serif, serif;
+	box-sizing: border-box;
 }
 
 html {
@@ -15,12 +16,16 @@ h1, .containers h3 {
 
 .containers {
 	text-align: center;
-	margin-top: 50px;
-	margin-bottom: 50px;
+	margin: 50px;
+	height: 70px;
 }
 
 #game-over-msg, #error-msg, #player-status {
 	display: none;
+}
+
+#status-msg {
+	line-height: 70px;
 }
 
 
@@ -97,4 +102,8 @@ button:hover {
 button:active {
 	position:relative;
 	top:1px;
+}
+
+#ecks {
+	margin-right: 5px;
 }
